@@ -1,2 +1,3 @@
 # claude-code-setup
-Claude Code configuration for productive web development
+
+My personal Claude Code configuration for productive web development.
