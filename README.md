@@ -1,16 +1,18 @@
-# claude-code-setup
+# claude-webdev-setup
 
 My personal Claude Code configuration for productive web development.
 
 ## Quick Setup
 
 1. **Clone the repository:**
+
    ```bash
-   git clone https://github.com/your-username/claude-code-setup.git
-   cd claude-code-setup
+   git clone https://github.com/your-username/claude-webdev-setup.git
+   cd claude-webdev-setup
    ```
 
 2. **Install MCP servers:**
+
    ```bash
    chmod +x install-mcp.sh
    ./install-mcp.sh
@@ -39,16 +41,19 @@ This repository configures two MCP (Model Context Protocol) servers that extend 
 **Why use it:** Claude's training data has a cutoff date, so library APIs may have changed. Context7 fetches current documentation to ensure accurate, working code.
 
 **Installation:**
+
 ```bash
 claude mcp add --transport http context7 https://mcp.context7.com/mcp
 ```
 
 **Usage in Claude Code:**
+
 - Ask Claude to look up documentation for any library
 - Claude will automatically use `resolve-library-id` and `query-docs` tools
 - Example: "How do I use React Query's useQuery hook?"
 
 **Available tools:**
+
 - `resolve-library-id` - Find the correct library ID
 - `query-docs` - Query documentation for a specific library
 
@@ -59,17 +64,20 @@ claude mcp add --transport http context7 https://mcp.context7.com/mcp
 **Why use it:** Allows Claude to control a browser, take screenshots, fill forms, click elements, and navigate websites.
 
 **Installation:**
+
 ```bash
 claude mcp add playwright -- npx @playwright/mcp@latest
 ```
 
 **Usage in Claude Code:**
+
 - Ask Claude to navigate to a website
 - Take screenshots of pages
 - Fill forms and click buttons
 - Extract data from web pages
 
 **Available tools:**
+
 - `browser_navigate` - Go to a URL
 - `browser_click` - Click elements
 - `browser_type` - Type text into fields
@@ -80,7 +88,7 @@ claude mcp add playwright -- npx @playwright/mcp@latest
 ## Repository Structure
 
 ```
-claude-code-setup/
+claude-webdev-setup/
 ├── .claude/
 │   └── settings.local.json   # Local Claude Code permissions
 ├── .mcp.json                  # Project-level MCP server configuration
