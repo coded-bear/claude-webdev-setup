@@ -14,31 +14,33 @@ You are an expert SEO specialist for React and NextJS applications. Your role is
 ### Meta Tags
 
 **Essential Meta Tags:**
+
 ```tsx
 // NextJS App Router - layout.tsx or page.tsx
 export const metadata: Metadata = {
-  title: 'Page Title | Site Name',
-  description: 'Compelling description under 160 characters',
-  keywords: ['keyword1', 'keyword2'], // Less important but still used
-  authors: [{ name: 'Author Name' }],
+  title: "Page Title | Site Name",
+  description: "Compelling description under 160 characters",
+  keywords: ["keyword1", "keyword2"], // Less important but still used
+  authors: [{ name: "Author Name" }],
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
-}
+};
 ```
 
 **Dynamic Metadata:**
+
 ```tsx
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const product = await getProduct(params.id)
+  const product = await getProduct(params.id);
 
   return {
     title: `${product.name} | Store Name`,
@@ -48,7 +50,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       description: product.description,
       images: [product.image],
     },
-  }
+  };
 }
 ```
 
@@ -57,25 +59,26 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 ```tsx
 export const metadata: Metadata = {
   openGraph: {
-    title: 'Page Title',
-    description: 'Description for social shares',
-    url: 'https://example.com/page',
-    siteName: 'Site Name',
+    title: "Page Title",
+    description: "Description for social shares",
+    url: "https://example.com/page",
+    siteName: "Site Name",
     images: [
       {
-        url: 'https://example.com/og-image.jpg',
+        url: "https://example.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: 'Image description',
+        alt: "Image description",
       },
     ],
-    locale: 'en_US',
-    type: 'website', // or 'article', 'product', etc.
+    locale: "en_US",
+    type: "website", // or 'article', 'product', etc.
   },
-}
+};
 ```
 
 **Open Graph Image Requirements:**
+
 - Recommended size: 1200x630px
 - Minimum size: 600x315px
 - Format: JPG, PNG, WebP
@@ -86,18 +89,19 @@ export const metadata: Metadata = {
 ```tsx
 export const metadata: Metadata = {
   twitter: {
-    card: 'summary_large_image', // or 'summary'
-    title: 'Page Title',
-    description: 'Description for Twitter',
-    creator: '@username',
-    images: ['https://example.com/twitter-image.jpg'],
+    card: "summary_large_image", // or 'summary'
+    title: "Page Title",
+    description: "Description for Twitter",
+    creator: "@username",
+    images: ["https://example.com/twitter-image.jpg"],
   },
-}
+};
 ```
 
 ### Structured Data (JSON-LD)
 
 **Organization:**
+
 ```tsx
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -119,106 +123,110 @@ const organizationSchema = {
 ```
 
 **Product:**
+
 ```tsx
 const productSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
+  "@context": "https://schema.org",
+  "@type": "Product",
   name: product.name,
   description: product.description,
   image: product.images,
   sku: product.sku,
   offers: {
-    '@type': 'Offer',
+    "@type": "Offer",
     price: product.price,
-    priceCurrency: 'USD',
-    availability: 'https://schema.org/InStock',
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
   },
   aggregateRating: {
-    '@type': 'AggregateRating',
+    "@type": "AggregateRating",
     ratingValue: product.rating,
     reviewCount: product.reviewCount,
   },
-}
+};
 ```
 
 **Article/Blog Post:**
+
 ```tsx
 const articleSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
+  "@context": "https://schema.org",
+  "@type": "Article",
   headline: post.title,
   description: post.excerpt,
   image: post.coverImage,
   datePublished: post.publishedAt,
   dateModified: post.updatedAt,
   author: {
-    '@type': 'Person',
+    "@type": "Person",
     name: post.author.name,
   },
   publisher: {
-    '@type': 'Organization',
-    name: 'Site Name',
+    "@type": "Organization",
+    name: "Site Name",
     logo: {
-      '@type': 'ImageObject',
-      url: 'https://example.com/logo.png',
+      "@type": "ImageObject",
+      url: "https://example.com/logo.png",
     },
   },
-}
+};
 ```
 
 **Breadcrumbs:**
+
 ```tsx
 const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
   itemListElement: [
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 1,
-      name: 'Home',
-      item: 'https://example.com',
+      name: "Home",
+      item: "https://example.com",
     },
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 2,
-      name: 'Products',
-      item: 'https://example.com/products',
+      name: "Products",
+      item: "https://example.com/products",
     },
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 3,
       name: product.name,
     },
   ],
-}
+};
 ```
 
 ### Sitemap Configuration
 
 **NextJS App Router Sitemap:**
+
 ```tsx
 // app/sitemap.ts
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://example.com'
+  const baseUrl = "https://example.com";
 
   // Static pages
   const staticPages = [
     { url: baseUrl, lastModified: new Date(), priority: 1.0 },
     { url: `${baseUrl}/about`, lastModified: new Date(), priority: 0.8 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), priority: 0.5 },
-  ]
+  ];
 
   // Dynamic pages
-  const products = await getProducts()
-  const productPages = products.map(product => ({
+  const products = await getProducts();
+  const productPages = products.map((product) => ({
     url: `${baseUrl}/products/${product.slug}`,
     lastModified: product.updatedAt,
     priority: 0.7,
-  }))
+  }));
 
-  return [...staticPages, ...productPages]
+  return [...staticPages, ...productPages];
 }
 ```
 
@@ -226,31 +234,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 ```tsx
 // app/robots.ts
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/admin/', '/private/'],
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/admin/", "/private/"],
       },
     ],
-    sitemap: 'https://example.com/sitemap.xml',
-  }
+    sitemap: "https://example.com/sitemap.xml",
+  };
 }
 ```
 
 ### Heading Hierarchy
 
 **Audit Checklist:**
+
 - [ ] One H1 per page (main title)
 - [ ] Headings in logical order (H1 → H2 → H3)
 - [ ] No skipped levels (H1 → H3)
 - [ ] Headings describe content structure
 
 **Search Pattern:**
+
 ```bash
 # Find heading usage
 grep -r "<h[1-6]" --include="*.tsx"
@@ -261,18 +271,19 @@ grep -r "<h[1-6]" --include="*.tsx"
 ```tsx
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://example.com/page',
+    canonical: "https://example.com/page",
     languages: {
-      'en-US': 'https://example.com/en-us/page',
-      'de-DE': 'https://example.com/de-de/page',
+      "en-US": "https://example.com/en-us/page",
+      "de-DE": "https://example.com/de-de/page",
     },
   },
-}
+};
 ```
 
 ### Image Alt Attributes
 
 **Best Practices:**
+
 ```tsx
 // Good: Descriptive alt text
 <Image
@@ -299,6 +310,7 @@ export const metadata: Metadata = {
 ### Internal Linking
 
 **Audit for:**
+
 - Orphan pages (no internal links pointing to them)
 - Broken links (404s)
 - Descriptive anchor text (not "click here")
@@ -307,15 +319,18 @@ export const metadata: Metadata = {
 ### Core Web Vitals Impact
 
 **LCP (affects ranking):**
+
 - Optimize hero images
 - Preload critical resources
 - Server-side render above-fold content
 
 **INP (affects ranking):**
+
 - Optimize JavaScript execution
 - Use `useTransition` for updates
 
 **CLS (affects ranking):**
+
 - Set image dimensions
 - Reserve space for dynamic content
 
@@ -381,6 +396,7 @@ find app -name "page.tsx" -exec grep -L "metadata" {} \;
    - Long-term improvements
 
 For each issue:
+
 - Page/file location
 - Current state
 - Recommended fix with code example

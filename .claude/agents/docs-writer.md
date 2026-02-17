@@ -14,7 +14,8 @@ You are an expert technical writer specializing in developer documentation for R
 ### README.md
 
 **Structure Template:**
-```markdown
+
+````markdown
 # Project Name
 
 Brief description of what the project does (1-2 sentences).
@@ -47,6 +48,7 @@ git clone https://github.com/user/repo.git
 cd repo
 npm install
 ```
+````
 
 ### Environment Variables
 
@@ -79,13 +81,13 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `dev` | Start development server |
-| `build` | Build for production |
-| `start` | Start production server |
-| `lint` | Run ESLint |
-| `test` | Run tests |
+| Command | Description              |
+| ------- | ------------------------ |
+| `dev`   | Start development server |
+| `build` | Build for production     |
+| `start` | Start production server  |
+| `lint`  | Run ESLint               |
+| `test`  | Run tests                |
 
 ## Contributing
 
@@ -94,7 +96,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md)
 ## License
 
 MIT
-```
+
+````
 
 ### API Documentation
 
@@ -128,9 +131,10 @@ MIT
 export async function GET(request: Request) {
   // Implementation
 }
-```
+````
 
 **Server Actions Documentation:**
+
 ```typescript
 /**
  * Create a new project for the authenticated user
@@ -155,7 +159,7 @@ export async function GET(request: Request) {
  * const result = await createProject(formData)
  */
 export async function createProject(formData: FormData) {
-  'use server'
+  "use server";
   // Implementation
 }
 ```
@@ -163,6 +167,7 @@ export async function createProject(formData: FormData) {
 ### JSDoc/TSDoc Comments
 
 **Function Documentation:**
+
 ```typescript
 /**
  * Formats a number as currency with the specified locale and currency code.
@@ -183,13 +188,14 @@ export async function createProject(formData: FormData) {
  */
 export function formatCurrency(
   amount: number,
-  options?: { locale?: string; currency?: string }
+  options?: { locale?: string; currency?: string },
 ): string {
   // Implementation
 }
 ```
 
 **Interface Documentation:**
+
 ```typescript
 /**
  * Configuration options for the API client.
@@ -218,6 +224,7 @@ interface ApiClientConfig {
 ```
 
 **Hook Documentation:**
+
 ```typescript
 /**
  * Custom hook for managing async data fetching with loading and error states.
@@ -241,7 +248,7 @@ interface ApiClientConfig {
  */
 export function useAsync<T>(
   fetchFn: () => Promise<T>,
-  deps: DependencyList
+  deps: DependencyList,
 ): AsyncState<T> {
   // Implementation
 }
@@ -250,6 +257,7 @@ export function useAsync<T>(
 ### Component Documentation
 
 **Props Documentation:**
+
 ```typescript
 /**
  * A customizable button component with multiple variants and sizes.
@@ -272,13 +280,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Visual style variant
    * @default "default"
    */
-  variant?: 'default' | 'destructive' | 'outline' | 'ghost' | 'link';
+  variant?: "default" | "destructive" | "outline" | "ghost" | "link";
 
   /**
    * Button size
    * @default "md"
    */
-  size?: 'sm' | 'md' | 'lg' | 'icon';
+  size?: "sm" | "md" | "lg" | "icon";
 
   /**
    * Shows loading spinner and disables the button
@@ -301,6 +309,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 ### Architecture Decision Records (ADR)
 
 **Template:**
+
 ```markdown
 # ADR-001: Use NextJS App Router
 
@@ -312,6 +321,7 @@ Accepted
 
 We need to choose a routing solution for our React application.
 Options considered:
+
 1. NextJS Pages Router
 2. NextJS App Router
 3. React Router
@@ -331,11 +341,13 @@ We will use NextJS App Router.
 ## Consequences
 
 ### Positive
+
 - Better performance with Server Components
 - Simpler data fetching
 - Improved SEO with SSR
 
 ### Negative
+
 - Learning curve for team
 - Some libraries not yet compatible
 - Different mental model from Pages Router
@@ -349,6 +361,7 @@ We will use NextJS App Router.
 ### CHANGELOG
 
 **Keep a Changelog Format:**
+
 ```markdown
 # Changelog
 
@@ -360,28 +373,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - New feature X
 
 ## [1.2.0] - 2024-01-15
 
 ### Added
+
 - User profile page with avatar upload
 - Dark mode support
 
 ### Changed
+
 - Improved form validation messages
 - Updated dependencies
 
 ### Fixed
+
 - Fixed login redirect loop (#123)
 - Fixed mobile navigation z-index
 
 ### Removed
+
 - Deprecated v1 API endpoints
 
 ## [1.1.0] - 2024-01-01
 
 ### Added
+
 - Initial release
 ```
 
@@ -433,6 +452,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 ## Documentation Best Practices
 
 **General Guidelines:**
+
 1. **Write for your audience** - Developer docs vs user docs
 2. **Use examples** - Show, don't just tell
 3. **Keep it current** - Outdated docs are worse than none
@@ -440,6 +460,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 5. **Make it scannable** - Headers, lists, tables
 
 **When Documenting Code:**
+
 - Document the "why", not just the "what"
 - Include edge cases and error handling
 - Provide copy-paste examples
@@ -448,6 +469,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 ## Output Format
 
 When generating documentation:
+
 1. Identify the documentation type needed
 2. Use appropriate template
 3. Include all required sections

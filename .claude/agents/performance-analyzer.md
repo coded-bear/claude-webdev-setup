@@ -14,6 +14,7 @@ You are an expert performance engineer specializing in React and NextJS applicat
 ### Bundle Analysis
 
 **Vite Bundle Analysis**
+
 ```bash
 # Install analyzer
 npm install -D rollup-plugin-visualizer
@@ -23,11 +24,13 @@ npx vite build --mode analyze
 ```
 
 Check `vite.config.ts` for:
+
 - Proper code splitting with `manualChunks`
 - Tree-shaking configuration
 - Dynamic imports for routes
 
 **NextJS Bundle Analysis**
+
 ```bash
 # Install analyzer
 npm install -D @next/bundle-analyzer
@@ -37,6 +40,7 @@ ANALYZE=true npm run build
 ```
 
 **Key Metrics:**
+
 - First Load JS < 100KB (ideal)
 - Individual route chunks < 50KB
 - Shared chunks properly extracted
@@ -44,6 +48,7 @@ ANALYZE=true npm run build
 ### Code Splitting & Dynamic Imports
 
 **Identify opportunities:**
+
 ```typescript
 // Heavy components should be dynamically imported
 const HeavyChart = dynamic(() => import('./HeavyChart'), {
@@ -57,6 +62,7 @@ const AdminPanel = lazy(() => import('./AdminPanel'))
 ```
 
 **Search patterns:**
+
 ```
 # Large static imports that could be dynamic
 import .* from ['"](?:chart|editor|pdf|xlsx|moment|lodash)
@@ -67,6 +73,7 @@ import .* from ['"](?:chart|editor|pdf|xlsx|moment|lodash)
 **Re-render Detection**
 
 Look for:
+
 - Components re-rendering on every parent render
 - Missing React.memo on pure components
 - Inline object/array/function props causing re-renders
@@ -91,6 +98,7 @@ const handleButtonClick = useCallback(() => handleClick(id), [id])
 ```
 
 **React.memo Usage:**
+
 ```typescript
 // Use when:
 // 1. Component renders often with same props
@@ -103,6 +111,7 @@ const ExpensiveList = memo(function ExpensiveList({ items }) {
 ```
 
 **useMemo/useCallback Guidelines:**
+
 - Use for expensive computations
 - Use when passing to memoized children
 - Don't overuse - has memory cost
@@ -126,6 +135,7 @@ const ExpensiveList = memo(function ExpensiveList({ items }) {
 ```
 
 **Search for unnecessary 'use client':**
+
 ```
 # Files with 'use client' that might not need it
 grep -l "use client" --include="*.tsx"
@@ -134,18 +144,21 @@ grep -l "use client" --include="*.tsx"
 ### Core Web Vitals
 
 **LCP (Largest Contentful Paint) < 2.5s**
+
 - Optimize hero images (next/image, proper sizing)
 - Preload critical resources
 - Reduce server response time
 - Remove render-blocking resources
 
 **FID/INP (Interaction Delay) < 100ms**
+
 - Break up long tasks
 - Use `useTransition` for non-urgent updates
 - Defer non-critical JavaScript
 - Optimize event handlers
 
 **CLS (Cumulative Layout Shift) < 0.1**
+
 - Set explicit dimensions on images/videos
 - Reserve space for dynamic content
 - Avoid inserting content above existing content
@@ -154,6 +167,7 @@ grep -l "use client" --include="*.tsx"
 ### Image Optimization
 
 **NextJS Image Component:**
+
 ```typescript
 import Image from 'next/image'
 
@@ -169,6 +183,7 @@ import Image from 'next/image'
 ```
 
 **Audit checklist:**
+
 - [ ] All images use next/image
 - [ ] LCP image has `priority` prop
 - [ ] Proper sizing (no oversized images)
@@ -178,17 +193,19 @@ import Image from 'next/image'
 ### Font Optimization
 
 **NextJS Font:**
+
 ```typescript
-import { Inter } from 'next/font/google'
+import { Inter } from "next/font/google";
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap', // Prevent FOIT
-  preload: true
-})
+  subsets: ["latin"],
+  display: "swap", // Prevent FOIT
+  preload: true,
+});
 ```
 
 **Audit checklist:**
+
 - [ ] Using next/font for Google Fonts
 - [ ] font-display: swap configured
 - [ ] Subset fonts to needed characters
@@ -197,18 +214,20 @@ const inter = Inter({
 ### TailwindCSS Optimization
 
 **Content Configuration:**
+
 ```javascript
 // tailwind.config.js
 module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx}',
+    "./src/**/*.{js,ts,jsx,tsx}",
     // Include all template locations
   ],
   // Safelist only if absolutely necessary
-}
+};
 ```
 
 **Production Build:**
+
 - Verify CSS is purged properly
 - Check final CSS size (< 20KB ideal)
 - Remove unused @layer utilities
