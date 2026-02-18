@@ -142,6 +142,10 @@ claude-webdev-setup/
 ├── app/                        # Working directory for web projects
 │   └── .gitkeep
 ├── .claude/
+│   ├── skills/
+│   │   ├── a11y-audit/         # Accessibility audit skill
+│   │   ├── content-audit/      # Content quality audit skill
+│   │   └── content-write/      # Content writing skill
 │   ├── settings.json           # Shared Claude Code settings (security, hooks, plugins)
 │   └── settings.local.json     # Local Claude Code permissions (not shared)
 ├── .mcp.json                   # Project-level MCP server configuration

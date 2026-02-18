@@ -18,6 +18,7 @@ This repository is configured with the following MCP servers:
 - **/frontend-design** - Creates distinctive, production-grade frontend interfaces. Use this skill when building web components, pages, or applications to produce polished, creative output.
 - **/content-write** - Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience. Use this skill when writing text content for web pages.
 - **/content-audit** - Audits website content for language errors, tone consistency, SEO issues, and accessibility. Use this skill to review existing content, whether written by humans or AI.
+- **/a11y-audit** - Audits web pages and code for WCAG compliance and accessibility issues. Use this skill to find and fix accessibility barriers.
 
 ## Tech Stack
 
