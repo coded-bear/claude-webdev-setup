@@ -17,12 +17,12 @@ This repository is configured with the following MCP servers:
 
 - **/frontend-design** - Creates distinctive, production-grade frontend interfaces. Use this skill when building web components, pages, or applications to produce polished, creative output.
 - **/content-write** - Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience. Use this skill when writing text content for web pages.
-- **/a11y-audit** - Audits web pages and code for WCAG compliance and accessibility issues. Use this skill to find and fix accessibility barriers.
 
 ## Available Agents
 
 - **content-auditor** — Audits website content for language errors, tone consistency, SEO issues, and accessibility. Delegate to this agent (via Task tool) when reviewing existing content — written by humans or AI. For multi-page audits, orchestrate multiple agent instances in parallel. For URL audits, run the agent in the foreground (it needs Playwright access). For file-based audits, the agent can run in the background.
 - **performance-reviewer** — Analyzes React/Next.js code for performance issues including unnecessary re-renders, bundle size, data fetching patterns, and server component opportunities. Delegate to this agent (via Task tool) when auditing code for performance. Can run in the background.
+- **a11y-auditor** — Audits web pages and code for WCAG compliance and accessibility issues. Finds semantic HTML problems, ARIA misuse, keyboard traps, contrast failures, and other barriers. Delegate to this agent (via Task tool) when auditing for accessibility. For URL audits, run the agent in the foreground (it needs Playwright access). For file-based audits, the agent can run in the background.
 
 ## Tech Stack
 
