@@ -19,6 +19,35 @@ This repository is configured with the following MCP servers:
 - **/content-write** - Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience. Use this skill when writing text content for web pages.
 - **/content-audit** - Audits website content for language errors, tone consistency, SEO issues, and accessibility. Use this skill to review existing content, whether written by humans or AI.
 
+## Tech Stack
+
+These are the preferred technologies for new projects. They are not strict constraints — use judgment based on project needs.
+
+### Frameworks & Build Tools
+
+- Next.js, React, Vite
+- TypeScript in strict mode — never use `// @ts-ignore` or `as any`
+
+### Styling & UI
+
+- Tailwind CSS
+- shadcn/ui
+- Theme configuration: https://tweakcn.com or custom themes
+
+### Testing
+
+- React Testing Library
+- Full test coverage for business logic
+
+### Database & CMS
+
+- Prisma (database adapter)
+- Payload CMS (when a CMS is needed)
+
+### Deployment
+
+- Docker or Vercel
+
 ## Development Guidelines
 
 ### Working Directory

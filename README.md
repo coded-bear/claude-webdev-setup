@@ -8,6 +8,7 @@ My personal Claude Code configuration for productive web development.
 - **frontend-design plugin** — `/frontend-design` skill for building polished web UIs
 - **Prettier hook** — auto-formats code when Claude stops
 - **Security deny rules** — blocks destructive commands and credential file access
+- **Preferred tech stack** — Next.js, TypeScript (strict), Tailwind CSS, shadcn/ui, Prisma
 - **Extended thinking** — always enabled for deeper reasoning
 
 ## Quick Setup
@@ -41,6 +42,18 @@ My personal Claude Code configuration for productive web development.
 ## The `app/` Directory
 
 The `app/` directory is the working directory where you create or clone web projects. It keeps project files separate from the configuration files in the repo root.
+
+## Preferred Tech Stack
+
+This setup is optimized for the following technologies. They are configured as defaults in `CLAUDE.md` — not strict constraints.
+
+- **Frameworks** — Next.js, React, Vite
+- **Language** — TypeScript (strict mode)
+- **Styling** — Tailwind CSS, shadcn/ui
+- **Testing** — React Testing Library
+- **Database** — Prisma
+- **CMS** — Payload CMS
+- **Deployment** — Docker or Vercel
 
 ## MCP Servers
 
