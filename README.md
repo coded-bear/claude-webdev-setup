@@ -2,6 +2,14 @@
 
 My personal Claude Code configuration for productive web development.
 
+## What's Included
+
+- **MCP Servers** — Context7 (documentation lookup) and Playwright (browser automation)
+- **frontend-design plugin** — `/frontend-design` skill for building polished web UIs
+- **Prettier hook** — auto-formats code when Claude stops
+- **Security deny rules** — blocks destructive commands and credential file access
+- **Extended thinking** — always enabled for deeper reasoning
+
 ## Quick Setup
 
 1. **Clone the repository:**
@@ -29,6 +37,10 @@ My personal Claude Code configuration for productive web development.
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI installed
 - [Node.js](https://nodejs.org/) 18 or higher
 - npm (comes with Node.js)
+
+## The `app/` Directory
+
+The `app/` directory is the working directory where you create or clone web projects. It keeps project files separate from the configuration files in the repo root.
 
 ## MCP Servers
 
@@ -85,18 +97,46 @@ claude mcp add playwright -- npx @playwright/mcp@latest
 - `browser_take_screenshot` - Take page screenshots
 - And many more...
 
+## Settings
+
+Configured in `.claude/settings.json`:
+
+### Security Deny Rules
+
+Blocks destructive and sensitive commands:
+
+- **Destructive commands** — `rm -rf`, `sudo`, `mkfs`, `dd`, `git push --force`, `git reset --hard`
+- **Pipe-to-shell** — `curl | bash`, `wget | bash`
+- **Shell config edits** — `~/.bashrc`, `~/.zshrc`
+- **Credential file access** — `~/.ssh/`, `~/.aws/`, `~/.gnupg/`, `~/.git-credentials`, `~/.docker/config.json`, `~/.npmrc`, `~/.pypirc`, and more
+
+### Prettier Hook
+
+Prettier runs automatically via a Stop hook whenever Claude finishes a response. All code in the working directory gets formatted with `npx prettier --write .`.
+
+### frontend-design Plugin
+
+The `frontend-design` plugin is enabled, providing the `/frontend-design` skill for building production-grade, polished web interfaces.
+
+### Extended Thinking
+
+`alwaysThinkingEnabled` is set to `true` so Claude uses extended thinking for deeper reasoning on every request.
+
 ## Repository Structure
 
 ```
 claude-webdev-setup/
+├── app/                        # Working directory for web projects
+│   └── .gitkeep
 ├── .claude/
-│   └── settings.local.json   # Local Claude Code permissions
-├── .mcp.json                  # Project-level MCP server configuration
-├── CLAUDE.md                  # Instructions for Claude Code
-├── README.md                  # This file
-├── install-mcp.sh             # MCP servers installation script
-├── LICENSE                    # MIT License
-└── .gitignore                 # Git ignore rules
+│   ├── settings.json           # Shared Claude Code settings (security, hooks, plugins)
+│   └── settings.local.json     # Local Claude Code permissions (not shared)
+├── .mcp.json                   # Project-level MCP server configuration
+├── CLAUDE.md                   # Instructions for Claude Code
+├── README.md                   # This file
+├── install-mcp.sh              # MCP servers installation script
+├── LICENSE                     # MIT License
+└── .gitignore                  # Git ignore rules
 ```
 
 ## Configuration Files
@@ -105,25 +145,17 @@ claude-webdev-setup/
 
 Project-level MCP configuration. When you open Claude Code in this directory, these servers are automatically available. This file can be committed to share MCP configuration with your team.
 
+### .claude/settings.json
+
+Shared project settings committed to the repo. Contains security deny rules, hooks, plugin configuration, and environment variables. These apply to anyone who clones the repository.
+
 ### .claude/settings.local.json
 
-Local permissions for Claude Code. This file contains allowed commands and is not meant to be shared (path-specific).
+Local permissions for Claude Code. This file contains machine-specific overrides and is not meant to be shared (path-specific).
 
 ### CLAUDE.md
 
 Instructions that Claude Code reads when working in this repository. Contains guidelines for development workflows.
-
-## Manual Installation
-
-If you prefer to install MCP servers manually:
-
-```bash
-# Context7 - Documentation lookup
-claude mcp add --transport http context7 https://mcp.context7.com/mcp
-
-# Playwright - Browser automation
-claude mcp add playwright -- npx @playwright/mcp@latest
-```
 
 ## Author
 
