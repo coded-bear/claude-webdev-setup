@@ -19,6 +19,7 @@ This repository is configured with the following MCP servers:
 - **/content-write** - Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience. Use this skill when writing text content for web pages.
 - **/content-audit** - Audits website content for language errors, tone consistency, SEO issues, and accessibility. Use this skill to review existing content, whether written by humans or AI.
 - **/a11y-audit** - Audits web pages and code for WCAG compliance and accessibility issues. Use this skill to find and fix accessibility barriers.
+- **/performance-review** - Analyzes React/Next.js code for performance issues including re-renders, bundle size, data fetching, and server component opportunities. Use this skill to find and fix performance bottlenecks.
 
 ## Tech Stack
 
