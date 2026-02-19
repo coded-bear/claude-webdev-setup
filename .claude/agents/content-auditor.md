@@ -2,6 +2,8 @@
 name: content-auditor
 description: Audits website content for language errors, tone consistency, SEO issues, and accessibility. Delegate to this agent when reviewing existing web content — written by humans or AI — to find and fix issues.
 tools: Read, Glob, Grep, WebFetch, WebSearch
+model: sonnet
+color: orange
 ---
 
 # Content Auditor

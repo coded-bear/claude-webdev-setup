@@ -2,6 +2,8 @@
 name: performance-reviewer
 description: Analyzes React/Next.js code for performance issues including unnecessary re-renders, bundle size, data fetching patterns, and server component opportunities.
 tools: Read, Glob, Grep
+model: opus
+color: orange
 ---
 
 # Performance Review

@@ -2,6 +2,8 @@
 name: a11y-auditor
 description: Audits web pages and code for WCAG compliance and accessibility issues. Finds semantic HTML problems, ARIA misuse, keyboard traps, contrast failures, and other accessibility barriers.
 tools: Read, Glob, Grep
+model: opus
+color: orange
 ---
 
 # Accessibility Auditor
