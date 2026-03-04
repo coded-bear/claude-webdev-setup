@@ -4,8 +4,8 @@ My personal Claude Code configuration for productive web development.
 
 ## What's Included
 
-- **MCP Servers** — Context7 (documentation lookup) and Playwright (browser automation)
-- **frontend-design plugin** — `/frontend-design` skill for building polished web UIs
+- **claude-webdev-plugin** — provides MCP servers (Context7, Playwright, shadcn), skills (`/content-write`), and agents (code-reviewer, a11y-auditor, performance-reviewer, content-auditor)
+- **frontend-design plugin** — `/frontend-design` skill for building polished web UIs (from `claude-plugins-official`)
 - **Prettier hook** — auto-formats code when Claude stops
 - **Security deny rules** — blocks destructive commands and credential file access
 - **Preferred tech stack** — Next.js, TypeScript (strict), Tailwind CSS, shadcn/ui, Prisma
@@ -16,21 +16,24 @@ My personal Claude Code configuration for productive web development.
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/claude-webdev-setup.git
+   git clone https://github.com/coded-bear/claude-webdev-setup.git
    cd claude-webdev-setup
    ```
 
-2. **Install MCP servers:**
+2. **Install plugins** (inside Claude Code):
 
-   ```bash
-   chmod +x install-mcp.sh
-   ./install-mcp.sh
+   ```
+   /plugin marketplace add coded-bear/claude-webdev-plugin
+   /plugin install claude-webdev-plugin@claude-webdev-plugin
+   /plugin install frontend-design@claude-plugins-official
    ```
 
-3. **Verify installation:**
-   ```bash
-   claude
-   # Then type: /mcp
+   The `settings.json` file enables these plugins, but they must be installed first. `frontend-design` comes from the official marketplace (available by default). `claude-webdev-plugin` requires adding a custom marketplace first.
+
+3. **Verify setup:**
+   ```
+   /plugin list
+   /mcp
    ```
 
 ## Prerequisites
@@ -57,58 +60,41 @@ This setup is optimized for the following technologies. They are configured as d
 
 ## MCP Servers
 
-This repository configures two MCP (Model Context Protocol) servers that extend Claude Code capabilities.
+MCP servers are provided by the `claude-webdev-plugin` and are automatically available when you open Claude Code in this directory.
 
 ### Context7
 
-**Purpose:** Provides up-to-date documentation and code examples for any programming library or framework.
+Provides up-to-date documentation and code examples for any programming library or framework. Useful because Claude's training data has a cutoff date, so library APIs may have changed.
 
-**Why use it:** Claude's training data has a cutoff date, so library APIs may have changed. Context7 fetches current documentation to ensure accurate, working code.
-
-**Installation:**
-
-```bash
-claude mcp add --transport http context7 https://mcp.context7.com/mcp
-```
-
-**Usage in Claude Code:**
-
-- Ask Claude to look up documentation for any library
-- Claude will automatically use `resolve-library-id` and `query-docs` tools
-- Example: "How do I use React Query's useQuery hook?"
-
-**Available tools:**
-
-- `resolve-library-id` - Find the correct library ID
-- `query-docs` - Query documentation for a specific library
+**Available tools:** `resolve-library-id`, `query-docs`
 
 ### Playwright
 
-**Purpose:** Browser automation for testing, scraping, and interacting with web pages.
+Browser automation for testing, scraping, and interacting with web pages. Allows Claude to control a browser, take screenshots, fill forms, click elements, and navigate websites.
 
-**Why use it:** Allows Claude to control a browser, take screenshots, fill forms, click elements, and navigate websites.
+**Available tools:** `browser_navigate`, `browser_click`, `browser_type`, `browser_snapshot`, `browser_take_screenshot`, and more.
 
-**Installation:**
+### shadcn
 
-```bash
-claude mcp add playwright -- npx @playwright/mcp@latest
-```
+UI component registry integration. Configured with [tweakcn.com](https://tweakcn.com) theme registry. Allows Claude to search, view, and install shadcn/ui components.
 
-**Usage in Claude Code:**
+**Available tools:** `search_items_in_registries`, `view_items_in_registries`, `get_add_command_for_items`, and more.
 
-- Ask Claude to navigate to a website
-- Take screenshots of pages
-- Fill forms and click buttons
-- Extract data from web pages
+## Skills
 
-**Available tools:**
+Skills are invoked with slash commands inside Claude Code.
 
-- `browser_navigate` - Go to a URL
-- `browser_click` - Click elements
-- `browser_type` - Type text into fields
-- `browser_snapshot` - Capture accessibility tree
-- `browser_take_screenshot` - Take page screenshots
-- And many more...
+- **`/frontend-design`** — Creates distinctive, production-grade frontend interfaces. Use when building web components, pages, or applications. Provided by the `frontend-design` plugin (`claude-plugins-official`).
+- **`/content-write`** — Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and target audience. Provided by `claude-webdev-plugin`.
+
+## Agents
+
+Agents are specialized sub-processes that handle specific tasks autonomously. They are provided by `claude-webdev-plugin`.
+
+- **code-reviewer** — Reviews code quality, finds bugs, suggests improvements, checks patterns, and audits recent commits.
+- **a11y-auditor** — Audits web pages and code for WCAG compliance and accessibility issues.
+- **performance-reviewer** — Analyzes React/Next.js code for performance issues including unnecessary re-renders, bundle size, and data fetching patterns.
+- **content-auditor** — Audits website content for language errors, tone consistency, SEO issues, and accessibility.
 
 ## Settings
 
@@ -127,13 +113,25 @@ Blocks destructive and sensitive commands:
 
 Prettier runs automatically via a Stop hook whenever Claude finishes a response. All code in the working directory gets formatted with `npx prettier --write .`.
 
-### frontend-design Plugin
+### Plugins
 
-The `frontend-design` plugin is enabled, providing the `/frontend-design` skill for building production-grade, polished web interfaces.
+Two plugins are enabled in `enabledPlugins`:
+
+- **`frontend-design`** — provides the `/frontend-design` skill
+  - Marketplace: `anthropics/claude-plugins-official` (official, available by default)
+  - Install: `/plugin install frontend-design@claude-plugins-official`
+- **`claude-webdev-plugin`** — provides MCP servers, `/content-write` skill, and agents
+  - Marketplace: `coded-bear/claude-webdev-plugin` (custom, must be added first)
+  - Add marketplace: `/plugin marketplace add coded-bear/claude-webdev-plugin`
+  - Install: `/plugin install claude-webdev-plugin@claude-webdev-plugin`
 
 ### Extended Thinking
 
 `alwaysThinkingEnabled` is set to `true` so Claude uses extended thinking for deeper reasoning on every request.
+
+### Project MCP Servers
+
+`enableAllProjectMcpServers` is set to `false` — MCP servers from `.mcp.json` files are not auto-approved. Servers are provided through the plugin instead.
 
 ## Repository Structure
 
@@ -142,29 +140,19 @@ claude-webdev-setup/
 ├── app/                        # Working directory for web projects
 │   └── .gitkeep
 ├── .claude/
-│   ├── skills/
-│   │   ├── a11y-audit/         # Accessibility audit skill
-│   │   ├── content-audit/      # Content quality audit skill
-│   │   └── content-write/      # Content writing skill
 │   ├── settings.json           # Shared Claude Code settings (security, hooks, plugins)
 │   └── settings.local.json     # Local Claude Code permissions (not shared)
-├── .mcp.json                   # Project-level MCP server configuration
 ├── CLAUDE.md                   # Instructions for Claude Code
 ├── README.md                   # This file
-├── install-mcp.sh              # MCP servers installation script
 ├── LICENSE                     # MIT License
 └── .gitignore                  # Git ignore rules
 ```
 
 ## Configuration Files
 
-### .mcp.json
-
-Project-level MCP configuration. When you open Claude Code in this directory, these servers are automatically available. This file can be committed to share MCP configuration with your team.
-
 ### .claude/settings.json
 
-Shared project settings committed to the repo. Contains security deny rules, hooks, plugin configuration, and environment variables. These apply to anyone who clones the repository.
+Shared project settings committed to the repo. Contains security deny rules, hooks, plugin configuration (`enabledPlugins`), environment variables, and `enableAllProjectMcpServers` flag. These apply to anyone who clones the repository.
 
 ### .claude/settings.local.json
 
@@ -172,7 +160,7 @@ Local permissions for Claude Code. This file contains machine-specific overrides
 
 ### CLAUDE.md
 
-Instructions that Claude Code reads when working in this repository. Contains guidelines for development workflows.
+Instructions that Claude Code reads when working in this repository. Contains guidelines for development workflows, available tools, and tech stack preferences.
 
 ## Author
 
