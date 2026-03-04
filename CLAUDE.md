@@ -8,21 +8,23 @@ This repository contains personal Claude Code configuration files for web develo
 
 ## Available MCP Servers
 
-This repository is configured with the following MCP servers:
+These MCP servers are provided by the `claude-webdev-plugin`:
 
 - **Context7** - Fetches up-to-date documentation for libraries and frameworks. Use it when implementing new features or working with external APIs.
 - **Playwright** - Browser automation for testing and web interactions. Use it for scraping, form filling, screenshots, and UI testing.
+- **shadcn** — UI component registry, configured with tweakcn.com theme registry (`REGISTRY_URL`)
 
 ## Available Skills
 
 - **/frontend-design** - Creates distinctive, production-grade frontend interfaces. Use this skill when building web components, pages, or applications to produce polished, creative output.
-- **/content-write** - Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience. Use this skill when writing text content for web pages.
+- **/content-write** (from `claude-webdev-plugin`) - Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience. Use this skill when writing text content for web pages.
 
 ## Available Agents
 
 - **content-auditor** — Audits website content for language errors, tone consistency, SEO issues, and accessibility. Delegate to this agent (via Task tool) when reviewing existing content — written by humans or AI. For multi-page audits, orchestrate multiple agent instances in parallel. For URL audits, run the agent in the foreground (it needs Playwright access). For file-based audits, the agent can run in the background.
 - **performance-reviewer** — Analyzes React/Next.js code for performance issues including unnecessary re-renders, bundle size, data fetching patterns, and server component opportunities. Delegate to this agent (via Task tool) when auditing code for performance. Can run in the background.
 - **a11y-auditor** — Audits web pages and code for WCAG compliance and accessibility issues. Finds semantic HTML problems, ARIA misuse, keyboard traps, contrast failures, and other barriers. Delegate to this agent (via Task tool) when auditing for accessibility. For URL audits, run the agent in the foreground (it needs Playwright access). For file-based audits, the agent can run in the background.
+- **code-reviewer** — Senior code review agent. Reviews code quality, finds bugs, suggests improvements, checks patterns, and audits recent commits. Delegate to this agent when the user asks for a code review. Can run in the background.
 
 ## Tech Stack
 
