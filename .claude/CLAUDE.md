@@ -47,7 +47,6 @@ These are the preferred technologies for new projects. They are not strict const
 
 - React Testing Library + Vitest
 - IMPORTANT: YOU MUST write unit tests for every component and utility function
-- Place test files next to source files inside the component folder (see Component Structure section)
 - Test user behavior, not implementation details (no testing internal state or private methods)
 
 ### Data Validation
@@ -92,7 +91,6 @@ When choosing libraries for common tasks, prefer these unless the project alread
 ### Naming Conventions
 
 - Files: PascalCase for components (`UserProfile.tsx`), camelCase for utilities (`formatDate.ts`), kebab-case for non-component directories (`user-profile/`)
-- Component folders use PascalCase matching the component export name (e.g., `UserProfile/`)
 - Named exports for all components and utilities — default exports only for Next.js pages/layouts/route handlers (required by framework)
 - Variables/functions: camelCase; types/interfaces: PascalCase; constants: UPPER_SNAKE_CASE
 
@@ -148,7 +146,7 @@ Application code lives directly in the project root. Create and develop web proj
 - Use `next/image` with appropriate `sizes` prop instead of `<img>` for automatic optimization
 - Lazy-load heavy client components with `next/dynamic` (charts, editors, maps)
 - Use `loading.tsx` for streaming/suspense boundaries
-- Avoid barrel files (`index.ts` re-exporting everything) in large feature directories — they break tree-shaking
+- Avoid barrel files (`index.ts` re-exporting everything) in large feature directories — they break tree-shaking (individual component `index.ts` re-exports are fine)
 
 ### Dependency Policy
 
