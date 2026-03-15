@@ -42,10 +42,12 @@ This setup is optimized for the following technologies. They are configured as d
 
 - **Frameworks** — Next.js, React, Vite
 - **Language** — TypeScript (strict mode)
-- **Styling** — Tailwind CSS, shadcn/ui
-- **Testing** — React Testing Library
+- **Styling** — Tailwind CSS, shadcn/ui, tweakcn (themes)
+- **Validation** — Zod
+- **Testing** — Vitest, React Testing Library
 - **Database** — Prisma
 - **CMS** — Payload CMS
+- **Package Manager** — pnpm
 - **Deployment** — Docker or Vercel
 
 ## Author
