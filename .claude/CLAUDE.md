@@ -99,7 +99,7 @@ Prettier runs automatically when Claude stops (Stop hook). No need to run it man
 
 ### Visual Verification
 
-Use Playwright to take screenshots and verify UI changes visually after styling or layout modifications.
+Never run Playwright unless explicitly asked by the user.
 
 ### State Management
 
@@ -124,6 +124,7 @@ Use Playwright to take screenshots and verify UI changes visually after styling 
 - Commit messages: Conventional Commits format (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`)
 - Commits in English
 - Branch naming: `feat/short-description`, `fix/short-description`
+- Never create branches, commit, or push changes unless explicitly asked by the user
 
 ### IMPORTANT: Accessibility (WCAG 2.2 AA)
 
