@@ -30,6 +30,13 @@ These are the preferred technologies for new projects. They are not strict const
 
 - Next.js, React, Vite
 - TypeScript in strict mode — never use `// @ts-ignore` or `as any`
+- Never use the `any` type — use `unknown`, generics, or proper type narrowing instead
+- Prefer `@ts-expect-error` over `@ts-ignore` only when suppression is truly necessary (with explanatory comment)
+- Use App Router (not Pages Router) for new Next.js projects
+- Prefer React Server Components by default — add `"use client"` only when using hooks, event handlers, or browser APIs
+- Use `next/image` instead of `<img>` for automatic optimization
+- Never use `useEffect` to compute derived state — use `useMemo` or compute inline during render
+- Use Server Actions for mutations; Route Handlers (`app/api/`) only for webhooks or external API endpoints
 
 ### Styling & UI
 
@@ -44,14 +51,37 @@ These are the preferred technologies for new projects. They are not strict const
 - Place test files next to source files (`Button.test.tsx` beside `Button.tsx`)
 - Test user behavior, not implementation details (no testing internal state or private methods)
 
+### Data Validation
+
+- Use Zod for runtime validation and type inference (`z.infer<typeof schema>`)
+- Use Zod schemas for validating API inputs and form data
+
 ### Database & CMS
 
 - Prisma (database adapter)
 - Payload CMS (when a CMS is needed)
 
+### Package Manager
+
+- pnpm — use `pnpm` for all install/run commands
+- Always use `pnpm dlx` instead of `npx`
+
 ### Deployment
 
 - Docker or Vercel
+
+## Code Conventions
+
+### Naming Conventions
+
+- Files: PascalCase for components (`UserProfile.tsx`), camelCase for utilities (`formatDate.ts`), kebab-case for directories (`user-profile/`)
+- Named exports for all components and utilities — default exports only for Next.js pages/layouts/route handlers (required by framework)
+- Variables/functions: camelCase; types/interfaces: PascalCase; constants: UPPER_SNAKE_CASE
+
+### Imports
+
+- Use `@/` path alias for absolute imports from project root
+- Import order: external packages → internal modules (`@/`) → relative imports → styles; separated by blank lines
 
 ## Development Guidelines
 
@@ -70,6 +100,30 @@ Prettier runs automatically when Claude stops (Stop hook). No need to run it man
 ### Visual Verification
 
 Use Playwright to take screenshots and verify UI changes visually after styling or layout modifications.
+
+### State Management
+
+- Local state (`useState`) for component-scoped state
+- React Context for shared UI state (theme, sidebar open/close)
+- Server state via React Server Components + Server Actions — avoid client-side fetching libraries unless necessary
+
+### Error Handling
+
+- Wrap page-level components with React Error Boundaries
+- Use Next.js `error.tsx` and `not-found.tsx` conventions
+- API routes: return structured error responses `{ error: string, status: number }`
+
+### Environment Variables
+
+- Use `.env` for local secrets (never commit — must be in `.gitignore`)
+- Prefix client-side variables with `NEXT_PUBLIC_`
+- Document required env vars in `.env.example`
+
+### Git Conventions
+
+- Commit messages: Conventional Commits format (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`)
+- Commits in English
+- Branch naming: `feat/short-description`, `fix/short-description`
 
 ### IMPORTANT: Accessibility (WCAG 2.2 AA)
 
