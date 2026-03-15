@@ -52,7 +52,7 @@ This setup is optimized for the following technologies. They are configured as d
 
 ## Author
 
-Lukasz Warchol
+Łukasz Warchoł
 
 ## License
 
