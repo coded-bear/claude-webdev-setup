@@ -38,7 +38,7 @@ My personal Claude Code configuration for productive web development.
 
 ## Preferred Tech Stack
 
-This setup is optimized for the following technologies. They are configured as defaults in `CLAUDE.md` — not strict constraints.
+This setup is optimized for the following technologies. They are configured as defaults in `.claude/CLAUDE.md` — not strict constraints.
 
 - **Frameworks** — Next.js, React, Vite
 - **Language** — TypeScript (strict mode)
@@ -52,12 +52,10 @@ This setup is optimized for the following technologies. They are configured as d
 
 ```
 claude-webdev-setup/
-├── app/                        # Working directory for web projects
-│   └── .gitkeep
 ├── .claude/
+│   ├── CLAUDE.md               # Instructions for Claude Code
 │   ├── settings.json           # Shared Claude Code settings (security, hooks, plugins)
 │   └── settings.local.json     # Local Claude Code permissions (not shared)
-├── CLAUDE.md                   # Instructions for Claude Code
 ├── README.md                   # This file
 ├── LICENSE                     # License
 └── .gitignore                  # Git ignore rules

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This repository contains personal Claude Code configuration files for web development workflows. Configuration files are stored in the `.claude/` directory. Web projects live in the `app/` directory.
+This repository contains personal Claude Code configuration files for web development workflows. All configuration files are stored in the `.claude/` directory. Application code lives directly in the project root.
 
 ## Available MCP Servers (from `claude-webdev-plugin`)
 
@@ -87,7 +87,7 @@ These are the preferred technologies for new projects. They are not strict const
 
 ### Working Directory
 
-The `app/` directory is where web projects are created and developed. Use it as the base for any new project work.
+Application code lives directly in the project root. Create and develop web projects here.
 
 ### Documentation Lookup
 
