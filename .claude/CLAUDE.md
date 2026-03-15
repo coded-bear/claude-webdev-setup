@@ -48,7 +48,7 @@ These are the preferred technologies for new projects. They are not strict const
 
 - React Testing Library + Vitest
 - IMPORTANT: YOU MUST write unit tests for every component and utility function
-- Place test files next to source files (`Button.test.tsx` beside `Button.tsx`)
+- Place test files next to source files inside the component folder (see Component Structure section)
 - Test user behavior, not implementation details (no testing internal state or private methods)
 
 ### Data Validation
@@ -74,9 +74,47 @@ These are the preferred technologies for new projects. They are not strict const
 
 ### Naming Conventions
 
-- Files: PascalCase for components (`UserProfile.tsx`), camelCase for utilities (`formatDate.ts`), kebab-case for directories (`user-profile/`)
+- Files: PascalCase for components (`UserProfile.tsx`), camelCase for utilities (`formatDate.ts`), kebab-case for non-component directories (`user-profile/`)
+- Component folders use PascalCase matching the component export name (e.g., `UserProfile/`)
 - Named exports for all components and utilities — default exports only for Next.js pages/layouts/route handlers (required by framework)
 - Variables/functions: camelCase; types/interfaces: PascalCase; constants: UPPER_SNAKE_CASE
+
+### Component Structure
+
+**Folder convention (non-shadcn components):** The folder name, component file name, test file name, and types file name MUST all use the same PascalCase name — identical to the component's export name.
+
+Example for a component named `UserProfile`:
+
+```
+UserProfile/
+├── UserProfile.tsx        # export const UserProfile = ...
+├── UserProfile.test.tsx
+├── UserProfile.types.ts   # only if types go beyond main Props interface
+└── index.ts               # export { UserProfile } from './UserProfile'
+```
+
+Each folder contains:
+
+- `ComponentName.tsx` — component implementation (named export matching PascalCase name)
+- `ComponentName.test.tsx` — unit tests
+- `index.ts` — re-exports (component + any other public exports)
+- `ComponentName.types.ts` — **only** if types go beyond the main Props interface
+
+**Component categories (`components/` directory):**
+
+```
+components/
+├── ui/          # shadcn/ui primitives — flat files, shadcn convention (don't wrap in folders)
+├── common/      # Reusable across the app (Logo, ThemeToggle, PageHeader, Avatar)
+├── sections/    # Page sections (HeroSection, PricingSection, CTASection, FAQSection)
+├── layouts/     # Layout building blocks (Sidebar, Navbar, Footer, MobileMenu)
+```
+
+Key rules:
+
+- `ui/` keeps shadcn's flat file convention — no PascalCase folders for these
+- Feature-specific components go in `features/<name>/components/` (not in global `components/`)
+- The `index.ts` pattern: `export { ComponentName } from './ComponentName'`
 
 ### Imports
 
