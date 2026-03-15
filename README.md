@@ -48,19 +48,6 @@ This setup is optimized for the following technologies. They are configured as d
 - **CMS** — Payload CMS
 - **Deployment** — Docker or Vercel
 
-## Repository Structure
-
-```
-claude-webdev-setup/
-├── .claude/
-│   ├── CLAUDE.md               # Instructions for Claude Code
-│   ├── settings.json           # Shared Claude Code settings (security, hooks, plugins)
-│   └── settings.local.json     # Local Claude Code permissions (not shared)
-├── README.md                   # This file
-├── LICENSE                     # License
-└── .gitignore                  # Git ignore rules
-```
-
 ## Author
 
 Lukasz Warchol
