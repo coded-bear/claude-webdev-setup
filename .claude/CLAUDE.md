@@ -34,7 +34,6 @@ These are the preferred technologies for new projects. They are not strict const
 - Prefer `@ts-expect-error` over `@ts-ignore` only when suppression is truly necessary (with explanatory comment)
 - Use App Router (not Pages Router) for new Next.js projects
 - Prefer React Server Components by default — add `"use client"` only when using hooks, event handlers, or browser APIs
-- Use `next/image` instead of `<img>` for automatic optimization
 - Never use `useEffect` to compute derived state — use `useMemo` or compute inline during render
 - Use Server Actions for mutations; Route Handlers (`app/api/`) only for webhooks or external API endpoints
 
@@ -58,7 +57,7 @@ These are the preferred technologies for new projects. They are not strict const
 
 ### Database & CMS
 
-- Prisma (database adapter)
+- Prisma (database adapter) — see @.claude/rules/database-conventions.md for detailed conventions
 - Payload CMS (when a CMS is needed)
 
 ### Package Manager
@@ -66,9 +65,27 @@ These are the preferred technologies for new projects. They are not strict const
 - pnpm — use `pnpm` for all install/run commands
 - Always use `pnpm dlx` instead of `npx`
 
-### Deployment
+### Common Commands <!-- Adjust per project -->
 
-- Docker or Vercel
+- `pnpm dev` / `pnpm build` — dev server / production build
+- `pnpm test` / `pnpm test:watch` — run tests (Vitest)
+- `pnpm lint` — run ESLint
+- `pnpm db:push` / `pnpm db:migrate` / `pnpm db:seed` — Prisma database commands
+
+### Deployment: Docker or Vercel
+
+### Preferred Libraries
+
+When choosing libraries for common tasks, prefer these unless the project already uses alternatives:
+
+- Forms: React Hook Form + Zod resolver
+- Animations/transitions: Framer Motion
+- Icons: Lucide React
+- Date handling: date-fns
+- Data fetching (when client-side needed): TanStack Query
+- Tables: TanStack Table
+- Toast notifications: Sonner
+- Email: React Email + Resend
 
 ## Code Conventions
 
@@ -81,40 +98,7 @@ These are the preferred technologies for new projects. They are not strict const
 
 ### Component Structure
 
-**Folder convention (non-shadcn components):** The folder name, component file name, test file name, and types file name MUST all use the same PascalCase name — identical to the component's export name.
-
-Example for a component named `UserProfile`:
-
-```
-UserProfile/
-├── UserProfile.tsx        # export const UserProfile = ...
-├── UserProfile.test.tsx
-├── UserProfile.types.ts   # only if types go beyond main Props interface
-└── index.ts               # export { UserProfile } from './UserProfile'
-```
-
-Each folder contains:
-
-- `ComponentName.tsx` — component implementation (named export matching PascalCase name)
-- `ComponentName.test.tsx` — unit tests
-- `index.ts` — re-exports (component + any other public exports)
-- `ComponentName.types.ts` — **only** if types go beyond the main Props interface
-
-**Component categories (`components/` directory):**
-
-```
-components/
-├── ui/          # shadcn/ui primitives — flat files, shadcn convention (don't wrap in folders)
-├── common/      # Reusable across the app (Logo, ThemeToggle, PageHeader, Avatar)
-├── sections/    # Page sections (HeroSection, PricingSection, CTASection, FAQSection)
-├── layouts/     # Layout building blocks (Sidebar, Navbar, Footer, MobileMenu)
-```
-
-Key rules:
-
-- `ui/` keeps shadcn's flat file convention — no PascalCase folders for these
-- Feature-specific components go in `features/<name>/components/` (not in global `components/`)
-- The `index.ts` pattern: `export { ComponentName } from './ComponentName'`
+@.claude/rules/component-conventions.md
 
 ### Imports
 
@@ -123,21 +107,21 @@ Key rules:
 
 ## Development Guidelines
 
+### Before Starting New Features
+
+1. Check existing components in `components/` and `features/` — reuse before creating new
+2. Look up documentation via Context7 for unfamiliar APIs
+3. After implementation: write tests, then delegate to **a11y-auditor**
+4. For auth/data features: delegate to **code-reviewer**
+
 ### Working Directory
 
 Application code lives directly in the project root. Create and develop web projects here.
 
-### Documentation Lookup
+### Code Formatting & Visual Verification
 
-Use Context7 to check up-to-date documentation when implementing or adding features with external libraries/frameworks.
-
-### Code Formatting
-
-Prettier runs automatically when Claude stops (Stop hook). No need to run it manually.
-
-### Visual Verification
-
-Never run Playwright unless explicitly asked by the user.
+- Prettier runs automatically when Claude stops (Stop hook). No need to run it manually.
+- Never run Playwright unless explicitly asked by the user.
 
 ### State Management
 
@@ -150,6 +134,27 @@ Never run Playwright unless explicitly asked by the user.
 - Wrap page-level components with React Error Boundaries
 - Use Next.js `error.tsx` and `not-found.tsx` conventions
 - API routes: return structured error responses `{ error: string, status: number }`
+
+### SEO & Metadata
+
+- Use Next.js Metadata API (`generateMetadata` / `metadata` export) — not manual `<head>` tags
+- Every page must have unique `title` and `description`
+- Include Open Graph (`og:title`, `og:description`, `og:image`) for shareable pages
+- Use semantic heading hierarchy (single `h1` per page, sequential `h2` -> `h3`)
+- Add `robots.txt` and `sitemap.xml` via Next.js conventions (`app/robots.ts`, `app/sitemap.ts`)
+
+### Performance
+
+- Use `next/image` with appropriate `sizes` prop instead of `<img>` for automatic optimization
+- Lazy-load heavy client components with `next/dynamic` (charts, editors, maps)
+- Use `loading.tsx` for streaming/suspense boundaries
+- Avoid barrel files (`index.ts` re-exporting everything) in large feature directories — they break tree-shaking
+
+### Dependency Policy
+
+- Prefer existing dependencies over adding new ones — check `package.json` first
+- Avoid large utility libraries (lodash, moment) — use native JS or lightweight alternatives
+- Before adding a package, verify: bundle size, maintenance status, TypeScript support
 
 ### Environment Variables
 
@@ -164,6 +169,14 @@ Never run Playwright unless explicitly asked by the user.
 - Branch naming: `feat/short-description`, `fix/short-description`
 - Never create branches, commit, or push changes unless explicitly asked by the user
 
+### Common Gotchas
+
+- `"use client"` is contagious — if a parent is a Client Component, all children are too. Keep client boundaries as low as possible.
+- Next.js caches aggressively — use `revalidatePath()` / `revalidateTag()` after mutations
+- Tailwind classes are purged at build time — never construct classes dynamically (`bg-${color}-500`). Use complete class names or `clsx`/`cva`.
+- Server Actions can only be called from Client Components — but can be defined in Server Component files
+- `next/image` requires explicit `width` and `height` (or `fill` with a sized parent)
+
 ### IMPORTANT: Accessibility (WCAG 2.2 AA)
 
 - Use semantic HTML elements (`button`, `nav`, `main`, `section`) — never `div`/`span` with click handlers
@@ -171,7 +184,6 @@ Never run Playwright unless explicitly asked by the user.
 - Images require descriptive `alt` text (decorative images use `alt=""`)
 - Form inputs must have associated `<label>` elements — not just placeholders
 - Color contrast: 4.5:1 for normal text, 3:1 for large text
-- After building or modifying UI components, automatically delegate to **a11y-auditor**
 
 ### IMPORTANT: Security
 
@@ -180,7 +192,6 @@ Never run Playwright unless explicitly asked by the user.
 - Use parameterized queries for database access (Prisma handles this by default)
 - Configure security headers (CSP, X-Frame-Options, X-Content-Type-Options) in Next.js `next.config`
 - Never use `dangerouslySetInnerHTML` with unsanitized data
-- After implementing features involving auth or data handling, automatically delegate to **code-reviewer**
 
 ### IMPORTANT: File Size & Modularity
 
