@@ -1,17 +1,11 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Repository Purpose
-
 This repository contains personal Claude Code configuration files for web development workflows. Configuration files are stored in the `.claude/` directory. Web projects live in the `app/` directory.
 
-## Available MCP Servers
+## Available MCP Servers (from `claude-webdev-plugin`)
 
-These MCP servers are provided by the `claude-webdev-plugin`:
-
-- **Context7** - Fetches up-to-date documentation for libraries and frameworks. Use it when implementing new features or working with external APIs.
-- **Playwright** - Browser automation for testing and web interactions. Use it for scraping, form filling, screenshots, and UI testing.
+- **Context7** - Up-to-date documentation for libraries/frameworks. Use when implementing new features or external APIs.
+- **Playwright** - Browser automation for testing, scraping, screenshots, and UI verification.
 - **shadcn** — UI component registry, configured with tweakcn.com theme registry (`REGISTRY_URL`)
 
 ## Available Skills
@@ -21,10 +15,12 @@ These MCP servers are provided by the `claude-webdev-plugin`:
 
 ## Available Agents
 
-- **content-auditor** — Audits website content for language errors, tone consistency, SEO issues, and accessibility. Delegate to this agent (via Task tool) when reviewing existing content — written by humans or AI. For multi-page audits, orchestrate multiple agent instances in parallel. For URL audits, run the agent in the foreground (it needs Playwright access). For file-based audits, the agent can run in the background.
-- **performance-reviewer** — Analyzes React/Next.js code for performance issues including unnecessary re-renders, bundle size, data fetching patterns, and server component opportunities. Delegate to this agent (via Task tool) when auditing code for performance. Can run in the background.
-- **a11y-auditor** — Audits web pages and code for WCAG compliance and accessibility issues. Finds semantic HTML problems, ARIA misuse, keyboard traps, contrast failures, and other barriers. Delegate to this agent (via Task tool) when auditing for accessibility. For URL audits, run the agent in the foreground (it needs Playwright access). For file-based audits, the agent can run in the background.
-- **code-reviewer** — Senior code review agent. Reviews code quality, finds bugs, suggests improvements, checks patterns, and audits recent commits. Delegate to this agent when the user asks for a code review. Can run in the background.
+Delegate to agents via Task tool. Use foreground for URL audits (needs Playwright), background for file-based work.
+
+- **content-auditor** — Audits content for language, tone, SEO, and accessibility issues.
+- **performance-reviewer** — Finds React/Next.js performance issues (re-renders, bundle size, data fetching).
+- **a11y-auditor** — Audits for WCAG compliance and accessibility barriers.
+- **code-reviewer** — Reviews code quality, finds bugs, checks patterns, audits commits.
 
 ## Tech Stack
 
@@ -43,8 +39,10 @@ These are the preferred technologies for new projects. They are not strict const
 
 ### Testing
 
-- React Testing Library
-- Full test coverage for business logic
+- React Testing Library + Vitest
+- IMPORTANT: YOU MUST write unit tests for every component and utility function
+- Place test files next to source files (`Button.test.tsx` beside `Button.tsx`)
+- Test user behavior, not implementation details (no testing internal state or private methods)
 
 ### Database & CMS
 
@@ -63,12 +61,37 @@ The `app/` directory is where web projects are created and developed. Use it as 
 
 ### Documentation Lookup
 
-Use Context7 to check up-to-date documentation when implementing new libraries or frameworks, or adding features using them. This ensures working with current API patterns rather than potentially outdated knowledge.
+Use Context7 to check up-to-date documentation when implementing or adding features with external libraries/frameworks.
 
 ### Code Formatting
 
-Prettier runs automatically when Claude stops (configured as a Stop hook). Code will be auto-formatted, so there is no need to run Prettier manually.
+Prettier runs automatically when Claude stops (Stop hook). No need to run it manually.
 
 ### Visual Verification
 
-Use Playwright to take screenshots and verify UI changes visually. This is especially useful after making styling or layout changes to confirm the result matches expectations.
+Use Playwright to take screenshots and verify UI changes visually after styling or layout modifications.
+
+### IMPORTANT: Accessibility (WCAG 2.2 AA)
+
+- Use semantic HTML elements (`button`, `nav`, `main`, `section`) — never `div`/`span` with click handlers
+- All interactive elements must be keyboard accessible with visible focus indicators
+- Images require descriptive `alt` text (decorative images use `alt=""`)
+- Form inputs must have associated `<label>` elements — not just placeholders
+- Color contrast: 4.5:1 for normal text, 3:1 for large text
+- After building or modifying UI components, automatically delegate to **a11y-auditor**
+
+### IMPORTANT: Security
+
+- Never hardcode secrets, API keys, or credentials — always use `process.env`
+- Validate and sanitize all user inputs on both client and server
+- Use parameterized queries for database access (Prisma handles this by default)
+- Configure security headers (CSP, X-Frame-Options, X-Content-Type-Options) in Next.js `next.config`
+- Never use `dangerouslySetInnerHTML` with unsanitized data
+- After implementing features involving auth or data handling, automatically delegate to **code-reviewer**
+
+### IMPORTANT: File Size & Modularity
+
+- Maximum ~150 lines per file — split into modules when exceeded
+- One component per file; extract sub-components, hooks, and utilities into separate files
+- Group related code in feature directories (`features/auth/`, `features/dashboard/`)
+- Separate concerns: API calls, business logic, and UI in distinct files
