@@ -1,10 +1,12 @@
-# CLAUDE.md
-
-This is a **configuration-only repository** — it contains no application code. It provides a reusable Claude Code setup (settings, rules, plugins, hooks) for web development projects. When starting a new web project, application code is created directly in the project root.
+# Project
 
 ## /init Instruction
 
 When running `/init`, first read the contents of all files in `.claude/rules/` to understand what conventions are already defined. Do not duplicate any information that exists in rules files.
+
+## Repository Purpose
+
+This is a **configuration-only repository** — it contains no application code. It provides a reusable Claude Code setup (settings, rules, plugins, hooks) for web development projects. When starting a new web project, application code is created directly in the project root.
 
 ## Repository Structure
 
