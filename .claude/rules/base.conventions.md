@@ -39,8 +39,8 @@ These are the preferred technologies for new projects. They are not strict const
 
 ### Styling & UI
 
-- Tailwind CSS
-- shadcn/ui
+- Tailwind CSS v4
+- shadcn/ui (new-york style)
 - Theme configuration: https://tweakcn.com or custom themes
 
 ### Testing
