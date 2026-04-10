@@ -7,6 +7,7 @@ My personal Claude Code configuration for productive web development.
 - **claude-webdev-plugin** — provides MCP servers, skills, agents and Spec-Driven Development workflow
 - **frontend-design plugin** — `/frontend-design` skill for building polished web UIs (from `claude-plugins-official`)
 - **Settings** — Prettier auto-formatting on stop, always-thinking mode, telemetry disabled, security deny-list for destructive commands and sensitive paths
+- **Convention rules** (`.claude/rules/`) — coding standards that extend `CLAUDE.md`: base conventions (tech stack, code style, MCP servers, skills, agents), React component structure, and Prisma database conventions
 - **Preferred tech stack** — Next.js, TypeScript (strict), Tailwind CSS, shadcn/ui, Prisma
 
 ## Quick Setup
