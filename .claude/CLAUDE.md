@@ -23,9 +23,8 @@ The intended workflow: clone this repo, then build the web application **directl
     ├── base.conventions.md            # Tech stack, code conventions, MCP/skills/agents
     ├── component-conventions.md       # React component folder/file structure
     └── database-conventions.md        # Prisma schema, client, migrations
-_specs/
-└── template.md                # Feature spec template (used by /spec skill)
-_plans/                        # Long-form implementation plans
+.gitignore
+LICENSE
 README.md                      # Human-facing setup guide
 ```
 
@@ -48,10 +47,6 @@ When you need a new project-wide rule, edit the matching file in `.claude/rules/
 ```
 
 To refresh a plugin after the author publishes a new version, run `/plugin marketplace update <name>` — `/plugin marketplace add` is a no-op for already-added marketplaces and will not fetch new versions.
-
-## Feature specs
-
-New features should start from `_specs/template.md` (the `claude-webdev-plugin:spec` skill generates files from this template). Keep the template's sections: Summary, Functional Requirements, Edge Cases, Acceptance Criteria, Open Questions, Testing Guidelines. Specs live in `_specs/`, long-form plans in `_plans/`.
 
 ## Local overrides
 
