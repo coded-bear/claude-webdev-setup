@@ -4,7 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## /init Instruction
 
-When running `/init`, first read the contents of all files in `.claude/rules/` to understand what conventions are already defined. Do not duplicate any information that exists in rules files.
+When running `/init`, first read all files in `.claude/rules/` — they define conventions that MUST NOT be repeated in CLAUDE.md. Specifically, rules already cover:
+
+- **Tech stack, preferred libraries, package manager** (`base.conventions.md`)
+- **Code style**: naming, imports, file size limits, export patterns (`base.conventions.md`)
+- **Component structure**: folder convention, categories, index re-exports (`component-conventions.md`)
+- **Database**: Prisma schema, client, migrations, seeding (`database-conventions.md`)
+- **Development guidelines**: state management, error handling, SEO, performance, dependency policy, env vars, git conventions (`base.conventions.md`)
+- **Security, accessibility, common gotchas** (`base.conventions.md`)
+- **MCP servers, skills, agents** (`base.conventions.md`)
+
+CLAUDE.md should only contain project-specific information: setup steps, commands, architecture, data flows, and integration details.
 
 ## Repository Purpose
 
