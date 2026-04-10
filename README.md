@@ -4,12 +4,10 @@ My personal Claude Code configuration for productive web development.
 
 ## What's Included
 
-- **claude-webdev-plugin** — provides MCP servers (Context7, Playwright, shadcn), skills (`/content-write`), and agents (code-reviewer, a11y-auditor, performance-reviewer, content-auditor)
+- **claude-webdev-plugin** — provides MCP servers, skills, agents and Spec-Driven Development workflow
 - **frontend-design plugin** — `/frontend-design` skill for building polished web UIs (from `claude-plugins-official`)
-- **Prettier hook** — auto-formats code when Claude stops
-- **Security deny rules** — blocks destructive commands and credential file access
+- **Settings** — Prettier auto-formatting on stop, always-thinking mode, telemetry disabled, security deny-list for destructive commands and sensitive paths
 - **Preferred tech stack** — Next.js, TypeScript (strict), Tailwind CSS, shadcn/ui, Prisma
-- **Extended thinking** — always enabled for deeper reasoning
 
 ## Quick Setup
 
