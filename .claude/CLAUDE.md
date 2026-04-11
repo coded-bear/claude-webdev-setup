@@ -58,6 +58,12 @@ When you need a new project-wide rule, edit the matching file in `.claude/rules/
 
 To refresh a plugin after the author publishes a new version, run `/plugin marketplace update <name>` — `/plugin marketplace add` is a no-op for already-added marketplaces and will not fetch new versions.
 
+After installing, verify with `/plugin list` and `/mcp` — both plugins should appear enabled and the `claude-webdev-plugin` MCP servers (Context7, Playwright, shadcn) should be connected.
+
+## Hooks
+
+A Stop hook in `settings.json` runs `npx prettier --write .` at the end of every turn. Do not run Prettier manually, and do not disable this hook without asking — it's the project's auto-formatting contract.
+
 ## Local overrides
 
 `.claude/settings.local.json` is gitignored and holds per-developer permissions and disabled MCP servers. Never commit it, and never move its contents into `settings.json`.
