@@ -3,12 +3,12 @@
 ## Schema Conventions
 
 - Place schema in `prisma/schema.prisma`
-- Use camelCase for field names — Prisma maps to snake_case with `@map`
-- Use `@id` with `@default(cuid())` for primary keys (prefer CUID over UUID for sortability)
+- Use camelCase for field names in the schema, but **explicitly** add `@map("snake_case_column")` to every field and `@@map("snake_case_table")` to every model — Prisma does not do this automatically
+- Use `@id` with `@default(cuid(2))` for primary keys — globally unique and unguessable. If you need time-sortable IDs instead, use `uuid(7)` or `ulid()` (cuid2 is intentionally not sortable)
 - Always add `createdAt` and `updatedAt` fields to every model:
   ```prisma
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
   ```
 - Use explicit relation names when a model has multiple relations to the same table
 - Add `@@index` for fields frequently used in `where` clauses
@@ -38,10 +38,22 @@
 
 ## Migration Workflow
 
+Define these scripts in `package.json` once:
+
+```json
+"scripts": {
+  "db:migrate": "prisma migrate dev",
+  "db:push": "prisma db push",
+  "db:seed": "prisma db seed",
+  "postinstall": "prisma generate"
+}
+```
+
 1. Edit `schema.prisma`
 2. Run `pnpm db:migrate` (creates migration + applies it) for production-ready changes
 3. Run `pnpm db:push` for rapid prototyping (no migration file created)
-4. After schema changes, Prisma Client regenerates automatically
+
+Both `db:migrate` and `db:push` regenerate Prisma Client automatically. The `postinstall` hook keeps types in sync after `git pull` / fresh installs — without it, a pulled schema change yields stale types until you remember to run `prisma generate`.
 
 ## Seeding
 
@@ -54,4 +66,5 @@
 - Never use raw SQL unless absolutely necessary — Prisma's query builder is type-safe
 - Use transactions (`db.$transaction`) for operations that must be atomic
 - Use Zod schemas that mirror Prisma models for API input validation
-- Soft delete pattern: add `deletedAt DateTime?` field instead of hard deleting records
+- **Serverless/edge deployments (Vercel) require a connection pooler** — Prisma Accelerate, Supabase Pooler, Neon, or PgBouncer. Without one, concurrent function instances exhaust the database connection limit under load.
+- Soft delete (`deletedAt DateTime?`): if you use it, **every** query must include `where: { deletedAt: null }` — one forgotten filter and deleted records leak back to users. Prefer hard delete + audit log unless you have a concrete reason for soft delete.
