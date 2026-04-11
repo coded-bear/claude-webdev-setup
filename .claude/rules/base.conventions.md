@@ -4,8 +4,8 @@ Reusable coding standards and development guidelines for web projects built with
 
 ## Available MCP Servers (from `claude-webdev-plugin`)
 
-- **Context7** - Up-to-date documentation for libraries/frameworks. Use when implementing new features or external APIs.
-- **Playwright** - Browser automation for testing, scraping, screenshots, and UI verification.
+- **Context7** — Up-to-date documentation for libraries/frameworks. Use when implementing new features or external APIs.
+- **Playwright** — Browser automation. Gated: run only when the user explicitly asks, or when required by an agent (e.g., content-auditor URL audits).
 - **shadcn** — UI component registry, configured with tweakcn.com theme registry (`REGISTRY_URL`)
 
 ## Available Skills
@@ -39,9 +39,8 @@ These are the preferred technologies for new projects. They are not strict const
 ### Frameworks & Build Tools
 
 - Next.js, React, Vite
-- TypeScript in strict mode — never use `// @ts-ignore` or `as any`
+- TypeScript in strict mode — never `@ts-ignore` or `as any`. Use `@ts-expect-error` only when suppression is truly necessary (with explanatory comment).
 - Never use the `any` type — use `unknown`, generics, or proper type narrowing instead
-- Prefer `@ts-expect-error` over `@ts-ignore` only when suppression is truly necessary (with explanatory comment)
 - Use App Router (not Pages Router) for new Next.js projects
 - Prefer React Server Components by default — add `"use client"` only when using hooks, event handlers, or browser APIs
 - Never use `useEffect` to compute derived state — use `useMemo` or compute inline during render
@@ -77,7 +76,9 @@ These are the preferred technologies for new projects. They are not strict const
 - pnpm — use `pnpm` for all install/run commands
 - Always use `pnpm dlx` instead of `npx`
 
-### Deployment: Docker or Vercel
+### Deployment
+
+- Docker or Vercel
 
 ### Preferred Libraries
 
@@ -113,19 +114,18 @@ When choosing libraries for common tasks, prefer these unless the project alread
 
 ### Before Starting New Features
 
-1. Check existing components in `components/` and `features/` — reuse before creating new
+1. Check existing components (`components/`, and `app/<route>/_components/` for Next.js / `features/<name>/` for Vite) — reuse before creating new
 2. Look up documentation via Context7 for unfamiliar APIs
-3. After implementation: write tests, then delegate to **a11y-auditor**
+3. For UI features: after implementation, write tests, then delegate to **a11y-auditor**
 4. For auth/data features: delegate to **code-reviewer**
 
 ### Working Directory
 
 Application code lives directly in the project root. Create and develop web projects here.
 
-### Code Formatting & Visual Verification
+### Code Formatting
 
 - Prettier runs automatically when Claude stops (Stop hook). No need to run it manually.
-- Never run Playwright unless explicitly asked by the user.
 
 ### State Management
 
@@ -133,13 +133,13 @@ Application code lives directly in the project root. Create and develop web proj
 - React Context for shared UI state (theme, sidebar open/close)
 - Server state via React Server Components + Server Actions — avoid client-side fetching libraries unless necessary
 
-### Error Handling
+### Error Handling (Next.js)
 
 - Wrap page-level components with React Error Boundaries
 - Use Next.js `error.tsx` and `not-found.tsx` conventions
 - API routes: return structured error responses `{ error: string, status: number }`
 
-### SEO & Metadata
+### SEO & Metadata (Next.js)
 
 - Use Next.js Metadata API (`generateMetadata` / `metadata` export) — not manual `<head>` tags
 - Every page must have unique `title` and `description`
@@ -147,7 +147,7 @@ Application code lives directly in the project root. Create and develop web proj
 - Use semantic heading hierarchy (single `h1` per page, sequential `h2` -> `h3`)
 - Add `robots.txt` and `sitemap.xml` via Next.js conventions (`app/robots.ts`, `app/sitemap.ts`)
 
-### Performance
+### Performance (Next.js)
 
 - Use `next/image` with appropriate `sizes` prop instead of `<img>` for automatic optimization
 - Lazy-load heavy client components with `next/dynamic` (charts, editors, maps)
@@ -163,7 +163,7 @@ Application code lives directly in the project root. Create and develop web proj
 ### Environment Variables
 
 - Use `.env` for local secrets (never commit — must be in `.gitignore`)
-- Prefix client-side variables with `NEXT_PUBLIC_`
+- Prefix client-side variables: `NEXT_PUBLIC_` in Next.js, `VITE_` in Vite
 - Document required env vars in `.env.example`
 
 ### Git Conventions
@@ -175,11 +175,11 @@ Application code lives directly in the project root. Create and develop web proj
 
 ### Common Gotchas
 
-- `"use client"` is contagious — if a parent is a Client Component, all children are too. Keep client boundaries as low as possible.
-- Next.js caches aggressively — use `revalidatePath()` / `revalidateTag()` after mutations
-- Tailwind classes are purged at build time — never construct classes dynamically (`bg-${color}-500`). Use complete class names or `clsx`/`cva`.
-- Server Actions can only be called from Client Components — but can be defined in Server Component files
-- `next/image` requires explicit `width` and `height` (or `fill` with a sized parent)
+- **Next.js**: `"use client"` is contagious — if a parent is a Client Component, all children are too. Keep client boundaries as low as possible.
+- **Next.js**: caches aggressively — use `revalidatePath()` / `revalidateTag()` after mutations
+- **Tailwind**: classes are purged at build time — never construct classes dynamically (`bg-${color}-500`). Use complete class names or `clsx`/`cva`.
+- **Next.js**: Server Actions can only be called from Client Components — but can be defined in Server Component files
+- **Next.js**: `next/image` requires explicit `width` and `height` (or `fill` with a sized parent)
 
 ### IMPORTANT: Accessibility (WCAG 2.2 AA)
 
@@ -201,5 +201,5 @@ Application code lives directly in the project root. Create and develop web proj
 
 - Maximum ~150 lines per file — split into modules when exceeded
 - One component per file; extract sub-components, hooks, and utilities into separate files
-- Group related code in feature directories (`features/auth/`, `features/dashboard/`)
+- Group related code by feature (`app/<route>/_components/` in Next.js, `features/<name>/` in Vite)
 - Separate concerns: API calls, business logic, and UI in distinct files
