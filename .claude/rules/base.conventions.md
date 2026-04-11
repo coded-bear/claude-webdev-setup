@@ -54,9 +54,12 @@ These are the preferred technologies for new projects. They are not strict const
 - Use Zod for runtime validation and type inference (`z.infer<typeof schema>`)
 - Use Zod schemas for validating API inputs and form data
 
-### Database & CMS
+### Database
 
-- Prisma (database adapter) — see @.claude/rules/database-conventions.md for detailed conventions
+@.claude/rules/database-conventions.md
+
+### CMS
+
 - Payload CMS (when a CMS is needed)
 
 ### Package Manager
