@@ -10,8 +10,18 @@ Reusable coding standards and development guidelines for web projects built with
 
 ## Available Skills
 
-- **/frontend-design** - Creates distinctive, production-grade frontend interfaces. Use this skill when building web components, pages, or applications to produce polished, creative output.
-- **/content-write** (from `claude-webdev-plugin`) - Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience. Use this skill when writing text content for web pages.
+- **/frontend-design** — Creates distinctive, production-grade frontend interfaces. Use when building web components, pages, or applications.
+- **/content-write** (from `claude-webdev-plugin`) — Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience.
+- **/commit-message** (from `claude-webdev-plugin`) — Analyzes `git diff` and generates a conventional commit message.
+
+### Spec-Driven Development (from `claude-webdev-plugin`)
+
+Ordered workflow for building features from idea to tasks:
+
+- **/spec-quick** — Single-file feature spec + branch from a short idea (lightweight mode, for small features)
+- **/spec-requirements** — Initialize a feature and generate `requirements.md` in EARS format (full SDD mode)
+- **/spec-design** — Generate `design.md` after requirements are drafted
+- **/spec-tasks** — Generate `tasks.md` with requirement traceability
 
 ## Available Agents
 
