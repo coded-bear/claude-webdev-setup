@@ -168,10 +168,10 @@ Application code lives directly in the project root. Create and develop web proj
 
 ### Git Conventions
 
-- Commit messages: Conventional Commits format (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`)
-- Commits in English
+- Commit messages: Conventional Commits with emoji prefix — format `<emoji> <type>: <description>` + optional body explaining the _why_, not just the _what_. Present tense, English. Types: ✨ `feat:`, 🐛 `fix:`, 🔨 `refactor:`, 📝 `docs:`, 🎨 `style:`, ✅ `test:`, ⚡ `perf:`
 - Branch naming: `feat/short-description`, `fix/short-description`
-- Never create branches, commit, or push changes unless explicitly asked by the user
+- Never create branches, commit, or push changes unless explicitly asked by the user — and even when asked, never auto-commit without showing the proposed message and waiting for confirmation
+- Shortcut: `/commit-message` automates this — it reads staged diff, proposes a message in the format above, and waits for your OK before committing
 
 ### Common Gotchas
 
