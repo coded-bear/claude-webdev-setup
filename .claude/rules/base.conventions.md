@@ -5,7 +5,7 @@ Reusable coding standards and development guidelines for web projects built with
 ## Available MCP Servers (from `claude-webdev-plugin`)
 
 - **Context7** — Up-to-date documentation for libraries/frameworks. Use when implementing new features or external APIs.
-- **Playwright** — Browser automation. Gated: run only when the user explicitly asks, or when required by an agent (e.g., content-auditor URL audits).
+- **Playwright** — Browser automation. Gated: run only when the user explicitly asks, or when required by an agent (e.g., content-reviewer URL audits).
 - **shadcn** — UI component registry, configured with tweakcn.com theme registry (`REGISTRY_URL`)
 
 ## Available Skills
@@ -18,7 +18,6 @@ Reusable coding standards and development guidelines for web projects built with
 
 Ordered workflow for building features from idea to tasks:
 
-- **/spec-quick** — Single-file feature spec + branch from a short idea (lightweight mode, for small features)
 - **/spec-requirements** — Initialize a feature and generate `requirements.md` in EARS format (full SDD mode)
 - **/spec-design** — Generate `design.md` after requirements are drafted
 - **/spec-tasks** — Generate `tasks.md` with requirement traceability
