@@ -11,7 +11,7 @@ Reusable coding standards and development guidelines for web projects built with
 ## Available Skills
 
 - **/frontend-design** — Creates distinctive, production-grade frontend interfaces. Use when building web components, pages, or applications.
-- **/content-write** (from `claude-webdev-plugin`) — Creates website content (copy, headlines, CTAs, meta tags) tailored to page type, industry, and audience.
+- **content-write** (from `claude-webdev-plugin`) — Writes web content (copy, headlines, CTAs, meta tags) adapted to page type and project context. Invoked with `/content-write <what to write>`. Triggers `content-reviewer` agent automatically after generation.
 - **/commit-message** (from `claude-webdev-plugin`) — Analyzes `git diff` and generates a conventional commit message.
 
 ### Spec-Driven Development (from `claude-webdev-plugin`)
@@ -27,10 +27,9 @@ Ordered workflow for building features from idea to tasks:
 
 Delegate to agents via Task tool. Use foreground for URL audits (needs Playwright), background for file-based work.
 
-- **content-auditor** — Audits content for language, tone, SEO, and accessibility issues.
-- **performance-reviewer** — Finds React/Next.js performance issues (re-renders, bundle size, data fetching).
-- **a11y-auditor** — Audits for WCAG compliance and accessibility barriers.
-- **code-reviewer** — Reviews code quality, finds bugs, checks patterns, audits commits.
+- **code-reviewer** (opus) — Code review: bugs, architecture, TypeScript, performance, security, readability
+- **a11y-reviewer** (sonnet) — WCAG 2.1/2.2 accessibility review: semantics, ARIA, keyboard, focus, forms, media, dynamic content
+- **content-reviewer** (sonnet) — Content review: language/grammar, tone, SEO, content quality. Auto-invoked after the `content-write` skill generates content
 
 ## Tech Stack
 
